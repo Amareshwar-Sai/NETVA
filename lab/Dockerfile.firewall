@@ -1,0 +1,19 @@
+FROM alpine:3.19
+
+RUN apk add --no-cache openssh iptables bash curl iputils net-tools
+
+# Setup SSH
+RUN mkdir -p /var/run/sshd && \
+    ssh-keygen -A && \
+    echo 'root:firewall123' | chpasswd && \
+    sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
+    sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config && \
+    echo 'PermitRootLogin yes' >> /etc/ssh/sshd_config
+
+COPY seed_vulns.sh /seed_vulns.sh
+COPY firewall-rules/default.sh /firewall-rules/default.sh
+RUN chmod +x /seed_vulns.sh /firewall-rules/default.sh
+
+EXPOSE 22
+
+CMD ["/bin/bash", "-c", "/seed_vulns.sh firewall && /usr/sbin/sshd && /firewall-rules/default.sh && tail -f /dev/null"]

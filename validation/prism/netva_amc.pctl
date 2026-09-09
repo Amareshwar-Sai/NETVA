@@ -1,0 +1,4 @@
+filter(print, P=? [ F "s_10_20_0_20__user" ])
+filter(print, P=? [ F "s_10_20_0_20__root" ])
+filter(print, P=? [ F "s_10_20_0_20__admin" ])
+filter(print, R{"steps"}=? [ F "any_absorbing" ])

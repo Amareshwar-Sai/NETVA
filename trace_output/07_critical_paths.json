@@ -1,0 +1,30 @@
+{
+  "path_count": 5,
+  "paths": [
+    {
+      "nodes": [],
+      "probability": 0.0,
+      "length": 2
+    },
+    {
+      "nodes": [],
+      "probability": 0.0,
+      "length": 3
+    },
+    {
+      "nodes": [],
+      "probability": 0.0,
+      "length": 1
+    },
+    {
+      "nodes": [],
+      "probability": 0.0,
+      "length": 4
+    },
+    {
+      "nodes": [],
+      "probability": 0.0,
+      "length": 5
+    }
+  ]
+}

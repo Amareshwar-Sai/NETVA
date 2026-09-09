@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<NessusClientData_v2>
+<Report name="Test Scan">
+<ReportHost name="192.168.1.10">
+  <HostProperties>
+    <tag name="host-ip">192.168.1.10</tag>
+    <tag name="hostname">test-web</tag>
+  </HostProperties>
+  <ReportItem port="80" protocol="tcp" svc_name="www" pluginID="99001"
+    pluginName="Test Web Vuln" severity="3">
+    <cve>CVE-2023-0001</cve>
+    <cvss_base_score>7.5</cvss_base_score>
+    <description>Test vulnerability</description>
+    <solution>Apply patch</solution>
+  </ReportItem>
+</ReportHost>
+</Report>
+</NessusClientData_v2>

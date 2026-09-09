@@ -1,0 +1,58 @@
+PRISM
+=====
+
+Version: 4.10.1
+Date: Wed Sep 09 19:42:22 IST 2026
+Hostname: Amareshwars-MacBook-Air.local
+Memory limits: cudd=1g, java(heap)=4g
+Command line: prism /Users/amareshwarsai/Desktop/NETVA/NETVA/validation/prism/netva_mdp.pm /Users/amareshwarsai/Desktop/NETVA/NETVA/validation/prism/netva_mdp.pctl -exportstrat /Users/amareshwarsai/Desktop/NETVA/NETVA/validation/prism/prism_strategy.txt
+
+Parsing PRISM model file "/Users/amareshwarsai/Desktop/NETVA/NETVA/validation/prism/netva_mdp.pm"...
+
+Type:        MDP
+Modules:     netva_mdp
+Actions:     [patch_os] [patch_web_server] [isolate_host] [isolate_from_internet] [block_port_80] [block_port_22] [disable_ssh_root_login] [fix_world_writable_files] [remove_backup_files] [disable_cgi] [revoke_ssh_keys] [disable_weak_accounts] [enable_auditd] [stop_vulnerable_service]
+Variables:   is_patched is_isolated service_stopped ssh_hardened files_hardened backup_removed cgi_disabled keys_revoked weak_accounts_disabled
+Labels:      "done"
+Rewards:     "defender_reward"
+
+Parsing properties file "/Users/amareshwarsai/Desktop/NETVA/NETVA/validation/prism/netva_mdp.pctl"...
+
+1 property:
+(1) Rmax=? [ C<=3 ]
+
+---------------------------------------------------------------------
+
+Model checking: Rmax=? [ C<=3 ]
+
+Warning: Switching to explicit engine to allow strategy generation.
+
+Building model (engine:explicit)...
+
+Computing reachable states... 512 states
+Reachable states exploration and model construction done in 0.032 secs.
+Sorting reachable states list...
+
+Time for model construction: 0.086 seconds.
+
+Type:        MDP
+States:      512 (1 initial)
+Transitions: 10496
+Choices:     7168
+Max/avg:     14/14.00
+Building reward structure...
+
+Starting expected cumulative reward (max)...
+Expected cumulative reward (max) took 3 iterations and 0.002 seconds.
+
+Value in the initial state: 4.1305617262
+
+Time for model checking: 0.433 seconds.
+
+Result: 4.1305617262 (exact floating point)
+
+---------------------------------------------------------------------
+
+Note: There was 1 warning during computation.
+
+

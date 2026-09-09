@@ -1,0 +1,138 @@
+{
+  "totals": {
+    "acl": 7,
+    "iam": 3,
+    "iac": 3,
+    "subnet": 0,
+    "other": 0
+  },
+  "edges": {
+    "acl": [
+      {
+        "src": "10.10.0.2",
+        "dst": "10.10.0.10",
+        "edge_type": "network",
+        "ports": [],
+        "permitted_by": "ACL: FORWARD 10.10.0.0/24->10.10.0.0/24",
+        "link_type": "",
+        "privilege_level": "none"
+      },
+      {
+        "src": "10.10.0.2",
+        "dst": "10.10.0.20",
+        "edge_type": "network",
+        "ports": [],
+        "permitted_by": "ACL: FORWARD 10.10.0.0/24->10.10.0.0/24",
+        "link_type": "",
+        "privilege_level": "none"
+      },
+      {
+        "src": "10.10.0.10",
+        "dst": "10.10.0.2",
+        "edge_type": "network",
+        "ports": [],
+        "permitted_by": "ACL: FORWARD 10.10.0.0/24->10.10.0.0/24",
+        "link_type": "",
+        "privilege_level": "none"
+      },
+      {
+        "src": "10.10.0.10",
+        "dst": "10.10.0.20",
+        "edge_type": "network",
+        "ports": [],
+        "permitted_by": "ACL: FORWARD 10.10.0.0/24->10.10.0.0/24",
+        "link_type": "",
+        "privilege_level": "none"
+      },
+      {
+        "src": "10.10.0.20",
+        "dst": "10.10.0.2",
+        "edge_type": "network",
+        "ports": [],
+        "permitted_by": "ACL: FORWARD 10.10.0.0/24->10.10.0.0/24",
+        "link_type": "",
+        "privilege_level": "none"
+      },
+      {
+        "src": "10.10.0.20",
+        "dst": "10.10.0.10",
+        "edge_type": "network",
+        "ports": [],
+        "permitted_by": "ACL: FORWARD 10.10.0.0/24->10.10.0.0/24",
+        "link_type": "",
+        "privilege_level": "none"
+      },
+      {
+        "src": "10.10.0.20",
+        "dst": "10.20.0.20",
+        "edge_type": "network",
+        "ports": [
+          3306
+        ],
+        "permitted_by": "ACL: FORWARD 10.10.0.20->10.20.0.20",
+        "link_type": "",
+        "privilege_level": "none"
+      }
+    ],
+    "iam": [
+      {
+        "src": "10.10.0.10",
+        "dst": "10.10.0.20",
+        "edge_type": "iam",
+        "ports": [],
+        "permitted_by": "IAM: ssh_key root@10.10.0.10->10.10.0.20",
+        "link_type": "ssh_key",
+        "privilege_level": "root"
+      },
+      {
+        "src": "10.10.0.20",
+        "dst": "10.20.0.20",
+        "edge_type": "iam",
+        "ports": [],
+        "permitted_by": "IAM: password root@10.10.0.20->10.20.0.20",
+        "link_type": "password",
+        "privilege_level": "root"
+      },
+      {
+        "src": "10.10.0.10",
+        "dst": "10.10.0.20",
+        "edge_type": "iam",
+        "ports": [],
+        "permitted_by": "IAM: cred_reuse admin@10.10.0.10->10.10.0.20",
+        "link_type": "cred_reuse",
+        "privilege_level": "user"
+      }
+    ],
+    "iac": [
+      {
+        "src": "10.10.0.10",
+        "dst": "10.10.0.20",
+        "edge_type": "network",
+        "ports": [],
+        "permitted_by": "IaC: lab_webserver->lab_appserver",
+        "link_type": "",
+        "privilege_level": "none"
+      },
+      {
+        "src": "10.10.0.20",
+        "dst": "10.10.0.10",
+        "edge_type": "network",
+        "ports": [],
+        "permitted_by": "IaC: lab_appserver->lab_webserver",
+        "link_type": "",
+        "privilege_level": "none"
+      },
+      {
+        "src": "10.10.0.20",
+        "dst": "10.20.0.20",
+        "edge_type": "network",
+        "ports": [],
+        "permitted_by": "IaC: lab_appserver->lab_database",
+        "link_type": "",
+        "privilege_level": "none"
+      }
+    ],
+    "subnet": [],
+    "other": []
+  }
+}

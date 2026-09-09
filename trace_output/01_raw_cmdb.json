@@ -1,0 +1,68 @@
+{
+  "assets": {
+    "10.10.0.10": {
+      "ip": "10.10.0.10",
+      "asset_name": "webserver-prod-01",
+      "asset_type": "webserver",
+      "owner": "platform-team",
+      "environment": "production",
+      "business_function": "customer-facing-marketing-site",
+      "data_classification": "public",
+      "compliance_scope": [],
+      "criticality": 0.55,
+      "criticality_rationale": "Public-facing site with no sensitive data; reputational risk only",
+      "last_reviewed": "2026-03-15"
+    },
+    "10.10.0.20": {
+      "ip": "10.10.0.20",
+      "asset_name": "appserver-prod-01",
+      "asset_type": "appserver",
+      "owner": "application-team",
+      "environment": "production",
+      "business_function": "order-processing-api",
+      "data_classification": "internal",
+      "compliance_scope": [
+        "SOC2"
+      ],
+      "criticality": 0.8,
+      "criticality_rationale": "Processes business transactions; only authorized cross-zone path to database",
+      "last_reviewed": "2026-03-20"
+    },
+    "10.20.0.20": {
+      "ip": "10.20.0.20",
+      "asset_name": "database-prod-01",
+      "asset_type": "database",
+      "owner": "data-team",
+      "environment": "production",
+      "business_function": "customer-records-and-transactions",
+      "data_classification": "pii-restricted",
+      "compliance_scope": [
+        "GDPR",
+        "PCI-DSS",
+        "SOC2"
+      ],
+      "criticality": 0.98,
+      "criticality_rationale": "Crown jewel \u00e2\u20ac\u201d stores customer PII, payment data, and transaction history",
+      "last_reviewed": "2026-04-01"
+    },
+    "10.10.0.2": {
+      "ip": "10.10.0.2",
+      "asset_name": "perimeter-firewall-01",
+      "asset_type": "firewall",
+      "owner": "network-team",
+      "environment": "production",
+      "business_function": "zone-segmentation-enforcement",
+      "data_classification": "internal",
+      "compliance_scope": [
+        "SOC2",
+        "PCI-DSS"
+      ],
+      "criticality": 0.9,
+      "criticality_rationale": "Single point of zone enforcement; compromise enables full lateral movement",
+      "last_reviewed": "2026-03-10"
+    }
+  },
+  "source": "lab-cmdb",
+  "version": "1.0",
+  "last_synced": "2026-04-26T12:00:00Z"
+}

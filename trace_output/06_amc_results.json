@@ -1,0 +1,50 @@
+{
+  "transient_states": [
+    "10.10.0.2::user",
+    "10.10.0.10::user",
+    "10.10.0.10::root",
+    "10.10.0.20::user",
+    "10.10.0.20::root",
+    "external",
+    "perimeter_waf",
+    "internal_firewall_acl"
+  ],
+  "absorbing_states": [
+    "10.20.0.20::user",
+    "10.20.0.20::root",
+    "10.20.0.20::admin"
+  ],
+  "absorption_per_node": {
+    "10.10.0.2::user": 1.0,
+    "10.10.0.10::user": 1.0,
+    "10.10.0.10::root": 1.0,
+    "10.10.0.20::user": 1.0,
+    "10.10.0.20::root": 1.0,
+    "external": 1.0,
+    "perimeter_waf": 1.0,
+    "internal_firewall_acl": 1.0
+  },
+  "expected_steps_per_node": {
+    "10.10.0.2::user": 7.4659,
+    "10.10.0.10::user": 7.1636,
+    "10.10.0.10::root": 7.1729,
+    "10.10.0.20::user": 5.6921,
+    "10.10.0.20::root": 5.3939,
+    "external": 8.5151,
+    "perimeter_waf": 7.4624,
+    "internal_firewall_acl": 1.0526
+  },
+  "node_risk": {
+    "10.10.0.2::user": 0.7749585253344049,
+    "10.10.0.10::user": 0.7113567627006343,
+    "10.10.0.10::root": 0.7955764981022261,
+    "10.10.0.20::user": 0.7217958160385842,
+    "10.10.0.20::root": 0.7987908318577371,
+    "external": 0.0,
+    "perimeter_waf": 0.0,
+    "internal_firewall_acl": 0.0,
+    "10.20.0.20::user": 0.98,
+    "10.20.0.20::root": 0.98,
+    "10.20.0.20::admin": 0.98
+  }
+}

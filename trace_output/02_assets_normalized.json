@@ -1,0 +1,111 @@
+[
+  {
+    "ip": "10.10.0.2",
+    "hostname": "lab_firewall",
+    "type": "firewall",
+    "zone": "dmz",
+    "criticality": 0.9,
+    "criticality_source": "cmdb",
+    "criticality_rationale": "Single point of zone enforcement; compromise enables full lateral movement",
+    "open_ports": [
+      22
+    ],
+    "vuln_count": 12,
+    "max_cvss": 8.1,
+    "cmdb_managed": true,
+    "cmdb_environment": "production",
+    "cmdb_business_function": "zone-segmentation-enforcement",
+    "cmdb_data_classification": "internal",
+    "cmdb_compliance_scope": [
+      "SOC2",
+      "PCI-DSS"
+    ],
+    "flags": {}
+  },
+  {
+    "ip": "10.10.0.10",
+    "hostname": "lab_webserver",
+    "type": "webserver",
+    "zone": "dmz",
+    "criticality": 0.55,
+    "criticality_source": "cmdb",
+    "criticality_rationale": "Public-facing site with no sensitive data; reputational risk only",
+    "open_ports": [
+      22,
+      80
+    ],
+    "vuln_count": 64,
+    "max_cvss": 9.8,
+    "cmdb_managed": true,
+    "cmdb_environment": "production",
+    "cmdb_business_function": "customer-facing-marketing-site",
+    "cmdb_data_classification": "public",
+    "cmdb_compliance_scope": [],
+    "flags": {
+      "ssh_root_login_enabled": true,
+      "has_weak_ssh_password": true,
+      "has_exposed_backup_files": true,
+      "has_exposed_git": true,
+      "has_cgi_enabled": true,
+      "has_phpinfo": true
+    }
+  },
+  {
+    "ip": "10.10.0.20",
+    "hostname": "lab_appserver",
+    "type": "appserver",
+    "zone": "dmz",
+    "criticality": 0.8,
+    "criticality_source": "cmdb",
+    "criticality_rationale": "Processes business transactions; only authorized cross-zone path to database",
+    "open_ports": [
+      22,
+      3000
+    ],
+    "vuln_count": 20,
+    "max_cvss": 9.8,
+    "cmdb_managed": true,
+    "cmdb_environment": "production",
+    "cmdb_business_function": "order-processing-api",
+    "cmdb_data_classification": "internal",
+    "cmdb_compliance_scope": [
+      "SOC2"
+    ],
+    "flags": {
+      "has_weak_ssh_password": true,
+      "has_world_writable_files": true,
+      "has_suid_binary": true,
+      "has_command_injection": true
+    }
+  },
+  {
+    "ip": "10.20.0.20",
+    "hostname": "database",
+    "type": "database",
+    "zone": "internal",
+    "criticality": 0.98,
+    "criticality_source": "cmdb",
+    "criticality_rationale": "Crown jewel \u00e2\u20ac\u201d stores customer PII, payment data, and transaction history",
+    "open_ports": [
+      3306,
+      22
+    ],
+    "vuln_count": 4,
+    "max_cvss": 9.8,
+    "cmdb_managed": true,
+    "cmdb_environment": "production",
+    "cmdb_business_function": "customer-records-and-transactions",
+    "cmdb_data_classification": "pii-restricted",
+    "cmdb_compliance_scope": [
+      "GDPR",
+      "PCI-DSS",
+      "SOC2"
+    ],
+    "flags": {
+      "ssh_root_login_enabled": true,
+      "has_default_credentials": true,
+      "db_listens_all_interfaces": true,
+      "has_pii_data": true
+    }
+  }
+]

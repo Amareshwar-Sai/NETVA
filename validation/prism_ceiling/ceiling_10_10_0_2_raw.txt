@@ -1,0 +1,59 @@
+PRISM
+=====
+
+Version: 4.10.1
+Date: Wed Sep 09 20:42:23 IST 2026
+Hostname: Amareshwars-MacBook-Air.local
+Memory limits: cudd=1g, java(heap)=4g
+Command line: prism /Users/amareshwarsai/Desktop/NETVA/NETVA/validation/prism_ceiling/ceiling_10_10_0_2.pm /Users/amareshwarsai/Desktop/NETVA/NETVA/validation/prism_ceiling/ceiling_10_10_0_2.pctl
+
+Parsing PRISM model file "/Users/amareshwarsai/Desktop/NETVA/NETVA/validation/prism_ceiling/ceiling_10_10_0_2.pm"...
+
+Type:        MDP
+Modules:     asset_ceiling
+Actions:     [patch_os] [isolate_host] [isolate_from_internet] [block_port_22] [disable_ssh_root_login] [fix_world_writable_files] [revoke_ssh_keys] [disable_weak_accounts] [segment_dmz_internal] [segment_internal_prod] [enable_auditd] [stop_vulnerable_service]
+Variables:   is_patched is_isolated ssh_hardened files_hardened keys_revoked weak_accounts_disabled service_stopped
+Rewards:     "risk_factor"
+
+Parsing properties file "/Users/amareshwarsai/Desktop/NETVA/NETVA/validation/prism_ceiling/ceiling_10_10_0_2.pctl"...
+
+1 property:
+(1) Rmin=? [ I=3 ]
+
+---------------------------------------------------------------------
+
+Model checking: Rmin=? [ I=3 ]
+
+Building model (engine:symbolic)...
+
+Computing reachable states...
+
+Reachability (BFS): 8 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+Time for model construction: 0.023 seconds.
+
+Type:        MDP
+States:      128 (1 initial)
+Transitions: 2112
+
+Transition matrix: 310 nodes (12 terminal), 2112 minterms, vars: 7r/7c/12nd
+
+Computing rewards...
+Switching engine since hybrid engine does yet support this computation...
+Engine: Sparse
+
+Building sparse matrix (transitions)... [n=128, nc=1536, nnz=2112, k=12] [31.2 KB]
+Allocating iteration vectors... [2 x 1.0 KB]
+TOTAL: [33.2 KB]
+
+Starting iterations...
+
+Iterative method: 3 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+Value in the initial state: 0.010262475000000004
+
+Time for model checking: 0.005 seconds.
+
+Result: 0.010262475000000004 (exact floating point)
+
+

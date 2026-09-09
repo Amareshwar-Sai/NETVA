@@ -1,0 +1,15 @@
+{
+  "containers": [
+    {
+      "type": "docker_container",
+      "id": "test_web",
+      "name": "test-web",
+      "ip": "192.168.1.10",
+      "subnet": "192.168.1.0/24",
+      "zone": "dmz",
+      "ports": [22, 80],
+      "connections": [],
+      "misconfigs": []
+    }
+  ]
+}

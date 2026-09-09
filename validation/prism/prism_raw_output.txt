@@ -1,0 +1,189 @@
+PRISM
+=====
+
+Version: 4.10.1
+Date: Wed Sep 09 18:54:40 IST 2026
+Hostname: Amareshwars-MacBook-Air.local
+Memory limits: cudd=1g, java(heap)=4g
+Command line: prism /Users/amareshwarsai/Desktop/NETVA/NETVA/validation/prism/netva_amc.pm /Users/amareshwarsai/Desktop/NETVA/NETVA/validation/prism/netva_amc.pctl
+
+Parsing PRISM model file "/Users/amareshwarsai/Desktop/NETVA/NETVA/validation/prism/netva_amc.pm"...
+
+Type:        DTMC
+Modules:     netva_amc
+Actions:     []
+Variables:   s
+Labels:      "s_10_20_0_20__user" "s_10_20_0_20__root" "s_10_20_0_20__admin" "any_absorbing"
+Rewards:     "steps"
+
+Parsing properties file "/Users/amareshwarsai/Desktop/NETVA/NETVA/validation/prism/netva_amc.pctl"...
+
+4 properties:
+(1) filter(print, P=? [ F "s_10_20_0_20__user" ])
+(2) filter(print, P=? [ F "s_10_20_0_20__root" ])
+(3) filter(print, P=? [ F "s_10_20_0_20__admin" ])
+(4) filter(print, R{"steps"}=? [ F "any_absorbing" ])
+
+---------------------------------------------------------------------
+
+Model checking: filter(print, P=? [ F "s_10_20_0_20__user" ])
+
+Building model (engine:symbolic)...
+
+Computing reachable states...
+
+Reachability (BFS): 1 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+Time for model construction: 0.015 seconds.
+
+Type:        DTMC
+States:      11 (11 initial)
+Transitions: 32
+
+Transition matrix: 93 nodes (23 terminal), 32 minterms, vars: 4r/4c
+
+Prob0: 5 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+Prob1: 4 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+yes = 2, no = 2, maybe = 7
+
+Computing remaining probabilities...
+Engine: Hybrid
+
+Building hybrid MTBDD matrix... [levels=4, nodes=75] [3.5 KB]
+Adding explicit sparse matrices... [levels=4, num=1, compact] [0.2 KB]
+Creating vector for diagonals... [dist=2, compact] [0.0 KB]
+Creating vector for RHS... [dist=2, compact] [0.0 KB]
+Allocating iteration vectors... [2 x 0.1 KB]
+TOTAL: [4.0 KB]
+
+Starting iterations...
+
+Jacobi: 68 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+States satisfying filter true: 11
+
+Results (non-zero only) for filter true:
+0:(0)=0.2628613655189719
+1:(1)=0.26607781509255257
+2:(2)=0.266055605744068
+3:(3)=0.25977001192086324
+4:(4)=0.2750823546421209
+5:(5)=0.262846104105531
+6:(6)=0.2628463132226178
+7:(7)=1.0
+8:(8)=1.0
+
+Range of values over initial states: [0.0,1.0]
+
+Time for model checking: 0.004 seconds.
+
+Result: [0.0,1.0]
+
+---------------------------------------------------------------------
+
+Model checking: filter(print, P=? [ F "s_10_20_0_20__root" ])
+
+Prob0: 4 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+Prob1: 4 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+yes = 1, no = 3, maybe = 7
+
+Computing remaining probabilities...
+Engine: Hybrid
+
+Building hybrid MTBDD matrix... [levels=4, nodes=75] [3.5 KB]
+Adding explicit sparse matrices... [levels=4, num=1, compact] [0.2 KB]
+Creating vector for diagonals... [dist=2, compact] [0.0 KB]
+Creating vector for RHS... [dist=2, compact] [0.0 KB]
+Allocating iteration vectors... [2 x 0.1 KB]
+TOTAL: [4.0 KB]
+
+Starting iterations...
+
+Jacobi: 68 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+States satisfying filter true: 11
+
+Results (non-zero only) for filter true:
+0:(0)=0.7371347725512415
+1:(1)=0.733918528427069
+2:(2)=0.733940730912781
+3:(3)=0.7402272128946268
+4:(4)=0.7249150394752123
+5:(5)=0.7371492485062497
+6:(6)=0.7371498273800353
+9:(9)=1.0
+
+Range of values over initial states: [0.0,1.0]
+
+Time for model checking: 0.0 seconds.
+
+Result: [0.0,1.0]
+
+---------------------------------------------------------------------
+
+Model checking: filter(print, P=? [ F "s_10_20_0_20__admin" ])
+
+Prob0: 1 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+Prob1: 1 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+yes = 1, no = 10, maybe = 0
+
+States satisfying filter true: 11
+
+Results (non-zero only) for filter true:
+10:(10)=1.0
+
+Range of values over initial states: [0.0,1.0]
+
+Time for model checking: 0.0 seconds.
+
+Result: [0.0,1.0]
+
+---------------------------------------------------------------------
+
+Model checking: filter(print, R{"steps"}=? [ F "any_absorbing" ])
+
+Prob0: 4 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+Prob1: 1 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+goal = 3, inf = 0, maybe = 8
+
+Computing remaining rewards...
+Engine: Hybrid
+
+Building hybrid MTBDD matrix... [levels=4, nodes=77] [3.6 KB]
+Adding explicit sparse matrices... [levels=4, num=1, compact] [0.2 KB]
+Creating vector for diagonals... [dist=2, compact] [0.0 KB]
+Creating vector for RHS... [dist=2, compact] [0.0 KB]
+Allocating iteration vectors... [2 x 0.1 KB]
+TOTAL: [4.1 KB]
+
+Starting iterations...
+
+Jacobi: 66 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+States satisfying filter true: 11
+
+Results (non-zero only) for filter true:
+0:(0)=7.465907833212642
+1:(1)=7.163550379775256
+2:(2)=7.172905850067476
+3:(3)=5.69211294089161
+4:(4)=5.393875993255381
+5:(5)=8.515021827794811
+6:(6)=7.462396522237486
+7:(7)=1.0526315789473684
+
+Range of values over initial states: [0.0,8.515021827794811]
+
+Time for model checking: 0.001 seconds.
+
+Result: [0.0,8.515021827794811]
+
+

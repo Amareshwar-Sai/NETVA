@@ -1,0 +1,34 @@
+% custom_rules.P — NETVA-specific rules
+
+% Crown jewel compromise
+interaction_rule(
+  (crownJewelCompromised(Host) :-
+    dbAccess(Host),
+    crownJewel(Host, _)),
+  rule_desc('Crown jewel database compromised', 1.0)).
+
+% SSH key lateral movement
+interaction_rule(
+  (execCode(DstHost, root) :-
+    execCode(SrcHost, _),
+    hasAccount(_, DstHost, root),
+    hacl(SrcHost, DstHost, tcp, _)),
+  rule_desc('SSH key gives root on destination', 0.9)).
+
+% Default credentials exploitation
+interaction_rule(
+  (execCode(Host, admin) :-
+    execCode(_, user),
+    hacl(_, Host, tcp, _),
+    networkServiceInfo(Host, 3306, tcp, mysql, _)),
+  rule_desc('Default MySQL credentials give admin', 0.85)).
+
+% Zone crossing bonus
+interaction_rule(
+  (zoneCrossing(SrcHost, DstHost) :-
+    execCode(SrcHost, _),
+    inZone(SrcHost, Zone1),
+    inZone(DstHost, Zone2),
+    Zone1 \= Zone2,
+    hacl(SrcHost, DstHost, _, _)),
+  rule_desc('Cross-zone movement detected', 0.7)).

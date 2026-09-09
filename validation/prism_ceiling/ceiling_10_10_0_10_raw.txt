@@ -1,0 +1,59 @@
+PRISM
+=====
+
+Version: 4.10.1
+Date: Wed Sep 09 20:42:24 IST 2026
+Hostname: Amareshwars-MacBook-Air.local
+Memory limits: cudd=1g, java(heap)=4g
+Command line: prism /Users/amareshwarsai/Desktop/NETVA/NETVA/validation/prism_ceiling/ceiling_10_10_0_10.pm /Users/amareshwarsai/Desktop/NETVA/NETVA/validation/prism_ceiling/ceiling_10_10_0_10.pctl
+
+Parsing PRISM model file "/Users/amareshwarsai/Desktop/NETVA/NETVA/validation/prism_ceiling/ceiling_10_10_0_10.pm"...
+
+Type:        MDP
+Modules:     asset_ceiling
+Actions:     [patch_os] [patch_web_server] [isolate_host] [isolate_from_internet] [block_port_80] [block_port_22] [disable_ssh_root_login] [fix_world_writable_files] [remove_backup_files] [disable_cgi] [revoke_ssh_keys] [disable_weak_accounts] [enable_auditd] [stop_vulnerable_service]
+Variables:   is_patched is_isolated service_stopped ssh_hardened files_hardened backup_removed cgi_disabled keys_revoked weak_accounts_disabled
+Rewards:     "risk_factor"
+
+Parsing properties file "/Users/amareshwarsai/Desktop/NETVA/NETVA/validation/prism_ceiling/ceiling_10_10_0_10.pctl"...
+
+1 property:
+(1) Rmin=? [ I=3 ]
+
+---------------------------------------------------------------------
+
+Model checking: Rmin=? [ I=3 ]
+
+Building model (engine:symbolic)...
+
+Computing reachable states...
+
+Reachability (BFS): 10 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+Time for model construction: 0.025 seconds.
+
+Type:        MDP
+States:      512 (1 initial)
+Transitions: 10496
+
+Transition matrix: 421 nodes (12 terminal), 10496 minterms, vars: 9r/9c/14nd
+
+Computing rewards...
+Switching engine since hybrid engine does yet support this computation...
+Engine: Sparse
+
+Building sparse matrix (transitions)... [n=512, nc=7168, nnz=10496, k=14] [153.0 KB]
+Allocating iteration vectors... [2 x 4.0 KB]
+TOTAL: [161.0 KB]
+
+Starting iterations...
+
+Iterative method: 3 iterations in 0.00 seconds (average 0.000000, setup 0.00)
+
+Value in the initial state: 0.010262475000000004
+
+Time for model checking: 0.004 seconds.
+
+Result: 0.010262475000000004 (exact floating point)
+
+

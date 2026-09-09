@@ -1,0 +1,44 @@
+% interaction_rules.P — Core MulVAL interaction rules
+
+% Rule 1: Remote exploit from network
+interaction_rule(
+  (execCode(Host, user) :-
+    attackerLocated(Zone),
+    hacl(Zone, Host, Protocol, _),
+    networkServiceInfo(Host, Port, Protocol, Service, _),
+    vulExists(Host, Vuln, Service),
+    vulProperty(Vuln, remoteExploit, privEscalation)),
+  rule_desc('Remote exploit gives user access', 1.0)).
+
+% Rule 2: Local privilege escalation
+interaction_rule(
+  (execCode(Host, root) :-
+    execCode(Host, user),
+    vulExists(Host, Vuln, _),
+    vulProperty(Vuln, localExploit, privEscalation)),
+  rule_desc('Local exploit escalates to root', 0.8)).
+
+% Rule 3: Lateral movement via network service exploit
+interaction_rule(
+  (execCode(DstHost, user) :-
+    execCode(SrcHost, _Priv),
+    hacl(SrcHost, DstHost, Protocol, _),
+    networkServiceInfo(DstHost, Port, Protocol, Service, _),
+    vulExists(DstHost, Vuln, Service),
+    vulProperty(Vuln, remoteExploit, privEscalation)),
+  rule_desc('Lateral movement via remote exploit', 0.9)).
+
+% Rule 4: Lateral movement via trusted account
+interaction_rule(
+  (execCode(DstHost, Priv) :-
+    execCode(SrcHost, _),
+    hasAccount(_, DstHost, Priv),
+    hacl(SrcHost, DstHost, _, _)),
+  rule_desc('Account-based lateral movement', 0.85)).
+
+% Rule 5: Database access from code execution
+interaction_rule(
+  (dbAccess(Host) :-
+    execCode(Host, _),
+    isDatabase(Host)),
+  rule_desc('Code execution leads to DB access', 0.95)).

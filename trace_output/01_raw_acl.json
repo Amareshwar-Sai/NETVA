@@ -1,0 +1,56 @@
+{
+  "default_policy": "DROP",
+  "rule_count": 5,
+  "rules": [
+    {
+      "chain": "FORWARD",
+      "action": "ACCEPT",
+      "protocol": "all",
+      "src": "10.10.0.0/24",
+      "dst": "10.10.0.0/24",
+      "port": null,
+      "direction": "forward",
+      "comment": ""
+    },
+    {
+      "chain": "FORWARD",
+      "action": "ACCEPT",
+      "protocol": "all",
+      "src": "10.20.0.0/24",
+      "dst": "10.20.0.0/24",
+      "port": null,
+      "direction": "forward",
+      "comment": ""
+    },
+    {
+      "chain": "FORWARD",
+      "action": "ACCEPT",
+      "protocol": "all",
+      "src": "10.30.0.0/24",
+      "dst": "10.30.0.0/24",
+      "port": null,
+      "direction": "forward",
+      "comment": ""
+    },
+    {
+      "chain": "FORWARD",
+      "action": "ACCEPT",
+      "protocol": "tcp",
+      "src": "10.10.0.20",
+      "dst": "10.20.0.20",
+      "port": 3306,
+      "direction": "forward",
+      "comment": ""
+    },
+    {
+      "chain": "INPUT",
+      "action": "ACCEPT",
+      "protocol": "tcp",
+      "src": "0.0.0.0/0",
+      "dst": "0.0.0.0/0",
+      "port": 22,
+      "direction": "in",
+      "comment": ""
+    }
+  ]
+}

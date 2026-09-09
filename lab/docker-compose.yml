@@ -1,0 +1,97 @@
+version: "3.9"
+
+networks:
+  dmz:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.10.0.0/24
+  internal:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.20.0.0/24
+  prod:
+    driver: bridge
+    ipam:
+      config:
+        - subnet: 10.30.0.0/24
+
+services:
+  webserver:
+    build:
+      context: .
+      dockerfile: Dockerfile.webserver
+    container_name: lab_webserver
+    hostname: webserver
+    networks:
+      dmz:
+        ipv4_address: 10.10.0.10
+    ports:
+      - "2221:22"
+      - "8080:80"
+    cap_add:
+      - NET_ADMIN
+
+  appserver:
+    build:
+      context: .
+      dockerfile: Dockerfile.appserver
+    container_name: lab_appserver
+    hostname: appserver
+    networks:
+      dmz:
+        ipv4_address: 10.10.0.20
+    ports:
+      - "2222:22"
+      - "3000:3000"
+    cap_add:
+      - NET_ADMIN
+
+  database:
+    build:
+      context: .
+      dockerfile: Dockerfile.database
+    container_name: lab_database
+    hostname: database
+    networks:
+      internal:
+        ipv4_address: 10.20.0.20
+    ports:
+      - "2223:22"
+      - "3307:3306"
+    cap_add:
+      - NET_ADMIN
+
+  firewall:
+    build:
+      context: .
+      dockerfile: Dockerfile.firewall
+    container_name: lab_firewall
+    hostname: firewall
+    networks:
+      dmz:
+          ipv4_address: 10.10.0.2
+      internal:
+          ipv4_address: 10.20.0.2
+      prod:
+          ipv4_address: 10.30.0.2
+    ports:
+      - "2224:22"
+    cap_add:
+      - NET_ADMIN
+    privileged: true
+
+  attacker:
+    build:
+      context: .
+      dockerfile: Dockerfile.attacker
+    container_name: lab_attacker
+    hostname: attacker
+    networks:
+      dmz:
+        ipv4_address: 10.10.0.99
+    cap_add:
+      - NET_ADMIN
+    stdin_open: true
+    tty: true

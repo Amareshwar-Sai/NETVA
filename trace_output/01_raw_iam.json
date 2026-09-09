@@ -1,0 +1,37 @@
+{
+  "link_count": 4,
+  "links": [
+    {
+      "src_host": "10.10.0.10",
+      "dst_host": "10.10.0.20",
+      "link_type": "ssh_key",
+      "username": "root",
+      "privilege": "root",
+      "description": "Webserver root SSH key trusted on appserver (authorized_keys)"
+    },
+    {
+      "src_host": "10.10.0.20",
+      "dst_host": "10.20.0.20",
+      "link_type": "password",
+      "username": "root",
+      "privilege": "root",
+      "description": "Appserver has MySQL root password in bash_history"
+    },
+    {
+      "src_host": "10.10.0.20",
+      "dst_host": "10.10.0.20",
+      "link_type": "sudo",
+      "username": "appuser",
+      "privilege": "root",
+      "description": "appuser ALL=(ALL) NOPASSWD: /usr/bin/python3, /opt/app/cleanup.sh"
+    },
+    {
+      "src_host": "10.10.0.10",
+      "dst_host": "10.10.0.20",
+      "link_type": "cred_reuse",
+      "username": "admin",
+      "privilege": "user",
+      "description": "Credential reuse: admin"
+    }
+  ]
+}

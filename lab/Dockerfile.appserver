@@ -1,0 +1,37 @@
+FROM ubuntu:22.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y \
+    nodejs npm openssh-server sudo curl wget python3 \
+    net-tools iputils-ping iptables cron \
+    && rm -rf /var/lib/apt/lists/*
+
+# Setup SSH
+RUN mkdir -p /var/run/sshd && \
+    echo 'root:root123' | chpasswd && \
+    sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
+    sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config
+
+# Create appuser with weak password
+RUN useradd -m -s /bin/bash appuser && echo 'appuser:appuser123' | chpasswd && \
+    usermod -aG sudo appuser
+
+# Create vulnerable Node.js app with command injection
+RUN mkdir -p /opt/app
+RUN echo '{"name":"vuln-app","version":"1.0.0","main":"server.js","dependencies":{"express":"^4.18.0"}}' > /opt/app/package.json
+RUN echo 'const express = require("express"); const {execSync} = require("child_process"); \
+const app = express(); \
+app.get("/", (req, res) => { \
+  if (req.query.cmd) { res.send(execSync(req.query.cmd).toString()); } \
+  else { res.send("App Server Running"); } \
+}); \
+app.listen(3000, () => console.log("Listening on 3000"));' > /opt/app/server.js
+RUN cd /opt/app && npm install 2>/dev/null || true
+
+COPY seed_vulns.sh /seed_vulns.sh
+RUN chmod +x /seed_vulns.sh
+
+EXPOSE 22 3000
+
+CMD ["/bin/bash", "-c", "/seed_vulns.sh appserver && service ssh start && cd /opt/app && node server.js"]

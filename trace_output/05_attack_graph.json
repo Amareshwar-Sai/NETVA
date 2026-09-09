@@ -1,0 +1,321 @@
+{
+  "node_count": 11,
+  "edge_count": 22,
+  "absorbing_states": [
+    "10.20.0.20::user",
+    "10.20.0.20::root",
+    "10.20.0.20::admin"
+  ],
+  "nodes": [
+    {
+      "id": "10.10.0.2::user",
+      "node_role": "host",
+      "host_id": "10.10.0.2",
+      "privilege": "user",
+      "criticality": 0.9,
+      "is_absorbing": false,
+      "termination_reason": "",
+      "zone": "dmz"
+    },
+    {
+      "id": "10.10.0.10::user",
+      "node_role": "host",
+      "host_id": "10.10.0.10",
+      "privilege": "user",
+      "criticality": 0.55,
+      "is_absorbing": false,
+      "termination_reason": "",
+      "zone": "dmz"
+    },
+    {
+      "id": "10.10.0.10::root",
+      "node_role": "host",
+      "host_id": "10.10.0.10",
+      "privilege": "root",
+      "criticality": 0.55,
+      "is_absorbing": false,
+      "termination_reason": "",
+      "zone": "dmz"
+    },
+    {
+      "id": "10.10.0.20::user",
+      "node_role": "host",
+      "host_id": "10.10.0.20",
+      "privilege": "user",
+      "criticality": 0.8,
+      "is_absorbing": false,
+      "termination_reason": "",
+      "zone": "dmz"
+    },
+    {
+      "id": "10.10.0.20::root",
+      "node_role": "host",
+      "host_id": "10.10.0.20",
+      "privilege": "root",
+      "criticality": 0.8,
+      "is_absorbing": false,
+      "termination_reason": "",
+      "zone": "dmz"
+    },
+    {
+      "id": "10.20.0.20::user",
+      "node_role": "host",
+      "host_id": "10.20.0.20",
+      "privilege": "user",
+      "criticality": 0.98,
+      "is_absorbing": true,
+      "termination_reason": "No further attacker actions available from user on 'database'. Path absorbs here.",
+      "zone": "internal"
+    },
+    {
+      "id": "10.20.0.20::root",
+      "node_role": "host",
+      "host_id": "10.20.0.20",
+      "privilege": "root",
+      "criticality": 0.98,
+      "is_absorbing": true,
+      "termination_reason": "Crown jewel compromised: full root access on critical database 'database'. Worst-case impact realized.",
+      "zone": "internal"
+    },
+    {
+      "id": "10.20.0.20::admin",
+      "node_role": "host",
+      "host_id": "10.20.0.20",
+      "privilege": "admin",
+      "criticality": 0.98,
+      "is_absorbing": true,
+      "termination_reason": "Crown jewel compromised: full admin access on critical database 'database'. Worst-case impact realized.",
+      "zone": "internal"
+    },
+    {
+      "id": "external",
+      "node_role": "entry",
+      "host_id": "external",
+      "privilege": "none",
+      "criticality": 0.0,
+      "is_absorbing": false,
+      "termination_reason": "",
+      "zone": "external"
+    },
+    {
+      "id": "perimeter_waf",
+      "node_role": "defense",
+      "host_id": "perimeter_waf",
+      "privilege": "none",
+      "criticality": 0.0,
+      "is_absorbing": false,
+      "termination_reason": "",
+      "zone": "perimeter"
+    },
+    {
+      "id": "internal_firewall_acl",
+      "node_role": "defense",
+      "host_id": "internal_firewall_acl",
+      "privilege": "none",
+      "criticality": 0.0,
+      "is_absorbing": false,
+      "termination_reason": "",
+      "zone": "perimeter"
+    }
+  ],
+  "edges": [
+    {
+      "src": "10.10.0.2::user",
+      "dst": "10.10.0.10::user",
+      "edge_type": "network_exploit",
+      "weight": 0.92,
+      "vuln_id": "CVE-2023-38408",
+      "mechanism": "intrazone_exploit:CVE-2023-38408 (vulners)",
+      "requires_port": 22
+    },
+    {
+      "src": "10.10.0.2::user",
+      "dst": "10.10.0.20::user",
+      "edge_type": "network_exploit",
+      "weight": 0.92,
+      "vuln_id": "CVE-2023-38408",
+      "mechanism": "intrazone_exploit:CVE-2023-38408 (vulners)",
+      "requires_port": 22
+    },
+    {
+      "src": "10.10.0.10::user",
+      "dst": "10.10.0.20::root",
+      "edge_type": "lateral_movement",
+      "weight": 0.85,
+      "vuln_id": "",
+      "mechanism": "lateral_iam:ssh_key",
+      "requires_port": 22
+    },
+    {
+      "src": "10.10.0.10::user",
+      "dst": "10.10.0.20::user",
+      "edge_type": "lateral_movement",
+      "weight": 0.65,
+      "vuln_id": "",
+      "mechanism": "lateral_iam:cred_reuse",
+      "requires_port": 22
+    },
+    {
+      "src": "10.10.0.10::user",
+      "dst": "10.10.0.2::user",
+      "edge_type": "network_exploit",
+      "weight": 0.89,
+      "vuln_id": "CVE-2026-35414",
+      "mechanism": "intrazone_exploit:CVE-2026-35414 (vulners)",
+      "requires_port": 22
+    },
+    {
+      "src": "10.10.0.10::root",
+      "dst": "10.10.0.20::root",
+      "edge_type": "lateral_movement",
+      "weight": 0.9,
+      "vuln_id": "",
+      "mechanism": "lateral_iam:ssh_key",
+      "requires_port": 22
+    },
+    {
+      "src": "10.10.0.10::root",
+      "dst": "10.10.0.20::user",
+      "edge_type": "lateral_movement",
+      "weight": 0.7,
+      "vuln_id": "",
+      "mechanism": "lateral_iam:cred_reuse",
+      "requires_port": 22
+    },
+    {
+      "src": "10.10.0.10::root",
+      "dst": "10.10.0.2::user",
+      "edge_type": "network_exploit",
+      "weight": 0.89,
+      "vuln_id": "CVE-2026-35414",
+      "mechanism": "intrazone_exploit:CVE-2026-35414 (vulners)",
+      "requires_port": 22
+    },
+    {
+      "src": "10.10.0.20::user",
+      "dst": "10.10.0.20::root",
+      "edge_type": "privilege_escalation",
+      "weight": 0.78,
+      "vuln_id": "PLUGIN-200101",
+      "mechanism": "privesc:SUID Binary Found: python3",
+      "requires_port": 0
+    },
+    {
+      "src": "10.10.0.20::user",
+      "dst": "10.20.0.20::root",
+      "edge_type": "lateral_movement",
+      "weight": 0.65,
+      "vuln_id": "",
+      "mechanism": "lateral_iam:password",
+      "requires_port": 22
+    },
+    {
+      "src": "10.10.0.20::user",
+      "dst": "10.10.0.2::user",
+      "edge_type": "network_exploit",
+      "weight": 0.89,
+      "vuln_id": "CVE-2026-35414",
+      "mechanism": "intrazone_exploit:CVE-2026-35414 (vulners)",
+      "requires_port": 22
+    },
+    {
+      "src": "10.10.0.20::user",
+      "dst": "10.10.0.10::user",
+      "edge_type": "network_exploit",
+      "weight": 0.92,
+      "vuln_id": "CVE-2023-38408",
+      "mechanism": "intrazone_exploit:CVE-2023-38408 (vulners)",
+      "requires_port": 22
+    },
+    {
+      "src": "10.10.0.20::user",
+      "dst": "internal_firewall_acl",
+      "edge_type": "fw_approach",
+      "weight": 0.95,
+      "vuln_id": "",
+      "mechanism": "fw_traversal_attempt",
+      "requires_port": 0
+    },
+    {
+      "src": "10.10.0.20::root",
+      "dst": "10.20.0.20::root",
+      "edge_type": "lateral_movement",
+      "weight": 0.7,
+      "vuln_id": "",
+      "mechanism": "lateral_iam:password",
+      "requires_port": 22
+    },
+    {
+      "src": "10.10.0.20::root",
+      "dst": "10.10.0.2::user",
+      "edge_type": "network_exploit",
+      "weight": 0.89,
+      "vuln_id": "CVE-2026-35414",
+      "mechanism": "intrazone_exploit:CVE-2026-35414 (vulners)",
+      "requires_port": 22
+    },
+    {
+      "src": "10.10.0.20::root",
+      "dst": "10.10.0.10::user",
+      "edge_type": "network_exploit",
+      "weight": 0.92,
+      "vuln_id": "CVE-2023-38408",
+      "mechanism": "intrazone_exploit:CVE-2023-38408 (vulners)",
+      "requires_port": 22
+    },
+    {
+      "src": "10.10.0.20::root",
+      "dst": "internal_firewall_acl",
+      "edge_type": "fw_approach",
+      "weight": 0.95,
+      "vuln_id": "",
+      "mechanism": "fw_traversal_attempt",
+      "requires_port": 0
+    },
+    {
+      "src": "10.20.0.20::user",
+      "dst": "10.20.0.20::admin",
+      "edge_type": "privilege_escalation",
+      "weight": 0.95,
+      "vuln_id": "PLUGIN-300100",
+      "mechanism": "db_admin_access:MySQL Default Credentials (root:root)",
+      "requires_port": 3306
+    },
+    {
+      "src": "external",
+      "dst": "perimeter_waf",
+      "edge_type": "perimeter_traversal",
+      "weight": 1.0,
+      "vuln_id": "",
+      "mechanism": "public_internet_access",
+      "requires_port": 0
+    },
+    {
+      "src": "perimeter_waf",
+      "dst": "10.10.0.10::user",
+      "edge_type": "perimeter_bypass",
+      "weight": 0.786,
+      "vuln_id": "CVE-2024-38476",
+      "mechanism": "waf_bypass:CVE-2024-38476 (vulners)",
+      "requires_port": 80
+    },
+    {
+      "src": "perimeter_waf",
+      "dst": "10.10.0.20::user",
+      "edge_type": "perimeter_bypass",
+      "weight": 0.786,
+      "vuln_id": "PLUGIN-200100",
+      "mechanism": "waf_bypass:Command Injection via Query Parameter",
+      "requires_port": 3000
+    },
+    {
+      "src": "internal_firewall_acl",
+      "dst": "10.20.0.20::user",
+      "edge_type": "network_exploit_via_fw",
+      "weight": 0.828,
+      "vuln_id": "PLUGIN-300100",
+      "mechanism": "fw_permitted_exploit:MySQL Default Credentials (root:root)",
+      "requires_port": 3306
+    }
+  ]
+}

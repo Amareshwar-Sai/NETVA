@@ -1,0 +1,25 @@
+FROM ubuntu:22.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+ENV MYSQL_ROOT_PASSWORD=root
+
+RUN apt-get update && apt-get install -y \
+    mysql-server openssh-server sudo curl \
+    net-tools iputils-ping iptables \
+    && rm -rf /var/lib/apt/lists/*
+
+# Setup SSH
+RUN mkdir -p /var/run/sshd && \
+    echo 'root:root123' | chpasswd && \
+    sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
+    sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config
+
+# Configure MySQL to listen on all interfaces (misconfigured)
+RUN sed -i 's/bind-address\s*=\s*127.0.0.1/bind-address = 0.0.0.0/' /etc/mysql/mysql.conf.d/mysqld.cnf || true
+
+COPY seed_vulns.sh /seed_vulns.sh
+RUN chmod +x /seed_vulns.sh
+
+EXPOSE 22 3306
+
+CMD ["/bin/bash", "-c", "/seed_vulns.sh database && service ssh start && service mysql start && tail -f /dev/null"]

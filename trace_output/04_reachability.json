@@ -1,0 +1,56 @@
+{
+  "edge_count": 7,
+  "edges": [
+    {
+      "src": "10.10.0.2",
+      "dst": "10.10.0.10",
+      "ports": "all",
+      "privilege": "none",
+      "reason": "ACL: FORWARD 10.10.0.0/24->10.10.0.0/24"
+    },
+    {
+      "src": "10.10.0.2",
+      "dst": "10.10.0.20",
+      "ports": "all",
+      "privilege": "none",
+      "reason": "ACL: FORWARD 10.10.0.0/24->10.10.0.0/24"
+    },
+    {
+      "src": "10.10.0.10",
+      "dst": "10.10.0.2",
+      "ports": "all",
+      "privilege": "none",
+      "reason": "ACL: FORWARD 10.10.0.0/24->10.10.0.0/24"
+    },
+    {
+      "src": "10.10.0.10",
+      "dst": "10.10.0.20",
+      "ports": "all",
+      "privilege": "root",
+      "reason": "ACL: FORWARD 10.10.0.0/24->10.10.0.0/24; IaC: lab_webserver->lab_appserver; IAM: ssh_key root@10.10.0.10->10.10.0.20; IAM: cred_reuse admin@10.10.0.10->10.10.0.20"
+    },
+    {
+      "src": "10.10.0.20",
+      "dst": "10.10.0.2",
+      "ports": "all",
+      "privilege": "none",
+      "reason": "ACL: FORWARD 10.10.0.0/24->10.10.0.0/24"
+    },
+    {
+      "src": "10.10.0.20",
+      "dst": "10.10.0.10",
+      "ports": "all",
+      "privilege": "none",
+      "reason": "ACL: FORWARD 10.10.0.0/24->10.10.0.0/24; IaC: lab_appserver->lab_webserver"
+    },
+    {
+      "src": "10.10.0.20",
+      "dst": "10.20.0.20",
+      "ports": [
+        3306
+      ],
+      "privilege": "root",
+      "reason": "ACL: FORWARD 10.10.0.20->10.20.0.20; IaC: lab_appserver->lab_database; IAM: password root@10.10.0.20->10.20.0.20"
+    }
+  ]
+}

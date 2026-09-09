@@ -1,0 +1,25 @@
+FROM ubuntu:22.04
+
+ENV DEBIAN_FRONTEND=noninteractive
+
+RUN apt-get update && apt-get install -y \
+    apache2 openssh-server sudo curl wget git php libapache2-mod-php \
+    net-tools iputils-ping iptables \
+    && rm -rf /var/lib/apt/lists/*
+
+# Setup SSH
+RUN mkdir -p /var/run/sshd && \
+    echo 'root:root123' | chpasswd && \
+    sed -i 's/#PermitRootLogin prohibit-password/PermitRootLogin yes/' /etc/ssh/sshd_config && \
+    sed -i 's/#PasswordAuthentication yes/PasswordAuthentication yes/' /etc/ssh/sshd_config
+
+# Create admin user with weak password
+RUN useradd -m -s /bin/bash admin && echo 'admin:admin123' | chpasswd && \
+    usermod -aG sudo admin
+
+COPY seed_vulns.sh /seed_vulns.sh
+RUN chmod +x /seed_vulns.sh
+
+EXPOSE 22 80
+
+CMD ["/bin/bash", "-c", "/seed_vulns.sh webserver && service ssh start && apachectl -D FOREGROUND"]
